@@ -42,7 +42,7 @@ public class DoctorController {
     }
 
     @GetMapping("/patient/{patientId}")
-    public Patient getData(@PathVariable long patientId) {
+    public Patient getPatient(@PathVariable long patientId) {
         return patientClient.getById(patientId);
     }
 }
