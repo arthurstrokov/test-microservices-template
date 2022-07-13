@@ -43,7 +43,6 @@ public class DoctorController {
 
     @GetMapping("/patient/{patientId}")
     public Patient getData(@PathVariable long patientId) {
-        System.out.println(patientId + " patient id");
         return patientClient.getById(patientId);
     }
 }
