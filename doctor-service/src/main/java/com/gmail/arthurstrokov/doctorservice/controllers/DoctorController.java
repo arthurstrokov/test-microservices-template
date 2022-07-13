@@ -14,33 +14,21 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/doctor")
 @RequiredArgsConstructor
 public class DoctorController {
-
     private final RestTemplate restTemplate;
-
     private final PatientClient patientClient;
+    private final DiagnosticClient diagnosticClient;
 
     private final DiagnosticClient diagnosticClient;
 
     @GetMapping
     public Consultation getAll(@RequestParam("patientId") Long patientId, @RequestParam("diagnosticId") Long diagnosticId) {
-
-        /*
-         * getPatientById
-         * getDiagnosticById
-         * setAvailableDoctor and return Consultation object
-         * */
-
         Patient patient = restTemplate.getForObject("http://patient-service/patient/" + patientId, Patient.class);
-
         Diagnostic diagnostic = restTemplate.getForObject("http://diagnostic-service/diagnostic/" + diagnosticId, Diagnostic.class);
-
         Consultation consultation = new Consultation();
         Doctor doctor = new Doctor(1L, "Alex");
-
         consultation.setPat(patient);
         consultation.setDiag(diagnostic);
         consultation.setDoc(doctor);
-
         return consultation;
     }
 
