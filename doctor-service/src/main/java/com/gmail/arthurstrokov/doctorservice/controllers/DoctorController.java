@@ -36,7 +36,19 @@ public class DoctorController {
     }
 
     @GetMapping("/diagnostic/{diagnosticId}")
-    Diagnostic getDiagnostic(@PathVariable("diagnosticId") long diagnosticId) {
+    public Diagnostic getDiagnostic(@PathVariable("diagnosticId") long diagnosticId) {
         return diagnosticClient.getById(diagnosticId);
+    }
+
+    @GetMapping("/consultation")
+    public Consultation getConsultation(@RequestParam("patientId") Long patientId, @RequestParam("diagnosticId") Long diagnosticId) {
+        Patient patient = patientClient.getById(patientId);
+        Diagnostic diagnostic = diagnosticClient.getById(diagnosticId);
+        Consultation consultation = new Consultation();
+        Doctor doctor = new Doctor(1L, "Alexandra");
+        consultation.setPat(patient);
+        consultation.setDiag(diagnostic);
+        consultation.setDoc(doctor);
+        return consultation;
     }
 }
