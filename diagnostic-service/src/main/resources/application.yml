@@ -1,12 +1,15 @@
 spring:
   main:
-    banner-mode: off
+    banner-mode: "off" # Set off banner
   application:
     name: diagnostic-service
-  jpa:
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
-server:
-  port: 8082
+  profiles:
+    active: dev
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      enabled: true
+      failFast: false
+      uri: http://localhost:8888/ # only for local using
+
