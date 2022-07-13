@@ -1,5 +1,6 @@
 package com.gmail.arthurstrokov.doctorservice.controllers;
 
+import com.gmail.arthurstrokov.doctorservice.feign.DiagnosticClient;
 import com.gmail.arthurstrokov.doctorservice.feign.PatientClient;
 import com.gmail.arthurstrokov.doctorservice.model.Consultation;
 import com.gmail.arthurstrokov.doctorservice.model.Diagnostic;
@@ -17,6 +18,8 @@ public class DoctorController {
     private final RestTemplate restTemplate;
 
     private final PatientClient patientClient;
+
+    private final DiagnosticClient diagnosticClient;
 
     @GetMapping
     public Consultation getAll(@RequestParam("patientId") Long patientId, @RequestParam("diagnosticId") Long diagnosticId) {
@@ -44,5 +47,10 @@ public class DoctorController {
     @GetMapping("/patient/{patientId}")
     public Patient getPatient(@PathVariable long patientId) {
         return patientClient.getById(patientId);
+    }
+
+    @GetMapping("/diagnostic/{diagnosticId}")
+    Diagnostic getDiagnostic(@PathVariable("diagnosticId") long diagnosticId) {
+        return diagnosticClient.getById(diagnosticId);
     }
 }
