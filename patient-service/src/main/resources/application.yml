@@ -1,5 +1,14 @@
-server:
-  port: 8081
 spring:
+  main:
+    banner-mode: off # Set off banner
   application:
     name: patient-service
+  profiles:
+    active: dev
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      enabled: true
+      failFast: false
+      uri: http://localhost:8888/ # only for local using

@@ -1,7 +1,14 @@
-server:
-  port: 8761
-
-eureka:
-  client:
-    fetch-registry: false
-    register-with-eureka: false
+spring:
+  main:
+    banner-mode: off # Set off banner
+  application:
+    name: discovery-server
+  profiles:
+    active: dev
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      enabled: true
+      failFast: false
+      uri: http://localhost:8888/ # only for local using

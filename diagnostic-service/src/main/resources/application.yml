@@ -1,6 +1,6 @@
 spring:
   main:
-    banner-mode: "off" # Set off banner
+    banner-mode: off # Set off banner
   application:
     name: diagnostic-service
   profiles:
@@ -12,4 +12,3 @@ spring:
       enabled: true
       failFast: false
       uri: http://localhost:8888/ # only for local using
-

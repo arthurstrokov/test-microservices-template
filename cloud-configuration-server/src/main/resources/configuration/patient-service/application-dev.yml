@@ -5,4 +5,4 @@ spring:
         format_sql: true
         show_sql: true
 server:
-  port: 8083
+  port: 8081
