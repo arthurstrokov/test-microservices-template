@@ -6,7 +6,7 @@ import com.gmail.arthurstrokov.doctorservice.model.Consultation;
 import com.gmail.arthurstrokov.doctorservice.model.Diagnostic;
 import com.gmail.arthurstrokov.doctorservice.model.Doctor;
 import com.gmail.arthurstrokov.doctorservice.model.Patient;
-import com.gmail.arthurstrokov.doctorservice.repository.DoctorRepository;
+import com.gmail.arthurstrokov.doctorservice.service.DoctorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/doctor")
 @RequiredArgsConstructor
 public class DoctorController {
-    private final DoctorRepository repository;
+    private final DoctorService doctorService;
     private final RestTemplate restTemplate;
     private final PatientClient patientClient;
     private final DiagnosticClient diagnosticClient;
@@ -46,11 +46,6 @@ public class DoctorController {
     public Consultation getConsultation(@RequestParam("patientId") Long patientId, @RequestParam("diagnosticId") Long diagnosticId) {
         Patient patient = patientClient.getById(patientId);
         Diagnostic diagnostic = diagnosticClient.getById(diagnosticId);
-        Consultation consultation = new Consultation();
-        Doctor doctor = repository.findById(1L).orElse(new Doctor(1L, "Alexandra"));
-        consultation.setPat(patient);
-        consultation.setDiag(diagnostic);
-        consultation.setDoc(doctor);
-        return consultation;
+        return doctorService.getConsultation(patient, diagnostic);
     }
 }
